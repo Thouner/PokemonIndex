@@ -1,0 +1,203 @@
+    body {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        -webkit-user-drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        height: 100vh;
+        font-family: 'Russo One', sans-serif;
+        text-transform: capitalize;
+        background-image: url(img/pokemon-bg.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+    
+     ::-webkit-scrollbar {
+        height: 5px;
+        width: 12px;
+    }
+    
+     ::-webkit-scrollbar-track {
+        background-color: #F8F5F2;
+    }
+    
+     ::-webkit-scrollbar-thumb {
+        background-color: #dddddd;
+    }
+    
+     ::-webkit-scrollbar-thumb:active {
+        background-color: rgb(128, 128, 128);
+    }
+    
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    
+    .cursor-default {
+        cursor: default;
+    }
+    
+    .transi-125 {
+        transition: 125ms;
+    }
+    
+    .transi-75 {
+        transition: 75ms;
+    }
+    
+    header {
+        height: auto;
+        background: aqua;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    header img:first-child {
+        height: 130px;
+        padding: 10px;
+    }
+    
+    #serachField input {}
+    
+    header img:last-child {
+        height: 70px;
+        padding: 10px;
+        filter: invert(13%) sepia(75%) saturate(7300%) hue-rotate(0deg) brightness(101%) contrast(115%);
+    }
+    
+    #pokeCard {
+        max-width: 600px;
+        width: 95vw;
+        min-height: 90vh;
+        border-radius: 30px;
+        position: relative;
+        /* ff 3.6+ */
+        background: -moz-linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(85, 127, 79, 1) 70%, rgba(36, 39, 28, 1) 100%);
+        /* safari 5.1+,chrome 10+ */
+        background: -webkit-linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(85, 127, 79, 1) 70%, rgba(36, 39, 28, 1) 100%);
+        /* opera 11.10+ */
+        background: -o-linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(85, 127, 79, 1) 70%, rgba(36, 39, 28, 1) 100%);
+        /* ie 6-9 */
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#111111', endColorstr='#24271C', GradientType=1);
+        /* ie 10+ */
+        background: -ms-linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(85, 127, 79, 1) 70%, rgba(36, 39, 28, 1) 100%);
+        /* global 94%+ browsers support */
+        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(85, 127, 79, 1) 70%, rgba(36, 39, 28, 1) 100%);
+    }
+    
+    #pokeId {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-transform: capitalize;
+        letter-spacing: 5px;
+    }
+    
+    #pokeImg {
+        z-index: 2;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10%;
+        height: 40%;
+    }
+    
+    .animation-scaledown {
+        animation: scaledown 0.5s forwards;
+    }
+    
+    @keyframes scaledown {
+        0% {
+            height: 40%;
+        }
+        100% {
+            height: 30%;
+        }
+    }
+    
+    #pokeName {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-transform: capitalize;
+        letter-spacing: 5px;
+    }
+    
+    #infoCard {
+        position: absolute;
+        bottom: 0;
+        height: 40%;
+        width: 100%;
+        border-radius: 30px;
+        background: transparent;
+    }
+    
+    .animation-fadeup {
+        animation: fadeup 0.5s forwards;
+    }
+    
+    @keyframes fadeup {
+        0% {
+            height: 40%;
+            background: transparent;
+        }
+        50% {
+            background: linear-gradient(30deg, rgba(17, 17, 17, 0.3) 0%, rgba(19, 29, 28, 0.3) 50%, rgba(29, 39, 30, 0.3) 100%);
+        }
+        100% {
+            height: 70%;
+            background: linear-gradient(30deg, rgba(17, 17, 17, 0.6) 0%, rgba(19, 29, 28, 0.6) 50%, rgba(29, 39, 30, 0.6) 100%);
+        }
+    }
+    
+    #statusButton {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #statsTable {
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        /* text-transform: capitalize; */
+    }
+    
+    #statsTable tr {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        white-space: nowrap;
+    }
+    
+    #statsTable th:last-child {
+        display: flex;
+        justify-content: space-between;
+        width: 75%;
+        height: 10px;
+    }
+    
+    #statsTable th:last-child span {
+        height: 100%;
+        width: 80%;
+        background: #454F4E;
+        border-radius: 10px;
+    }
+    
+    #statsTable th:last-child div {
+        height: 100%;
+        /* width: 45%; */
+        background: #C8C7C8;
+        border-radius: 10px;
+    }
