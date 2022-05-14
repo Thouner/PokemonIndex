@@ -63,7 +63,13 @@
         padding: 10px;
     }
     
-    #serachField input {}
+    #serachField input {
+        height: 30px;
+    }
+    
+    #serachField button {
+        height: 30px;
+    }
     
     header img:last-child {
         height: 70px;
