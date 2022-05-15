@@ -6,7 +6,8 @@
         display: flex;
     }
     .continuebutton {
-        max-width: 80%;
+        max-width: 90%;
+        min-width: 50%;
     }
     .serachFieldclass input,
     #serachField input {

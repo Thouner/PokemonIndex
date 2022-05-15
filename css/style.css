@@ -1,518 +1,617 @@
-    body {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-        -webkit-user-drag: none;
-        user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        /* height: 100vh; */
-        font-family: 'Paytone One', sans-serif;
-        text-transform: capitalize;
-        background-image: url(img/pokemon-bg.jpg);
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: top;
-    }
-    
-     ::-webkit-scrollbar {
-        height: 5px;
-        width: 2px;
-    }
-    
-     ::-webkit-scrollbar-track {
-        background-color: #F8F5F2;
-    }
-    
-     ::-webkit-scrollbar-thumb {
-        background-color: #dddddd;
-    }
-    
-     ::-webkit-scrollbar-thumb:active {
-        background-color: rgb(128, 128, 128);
-    }
-    
-    .cursor-pointer {
-        cursor: pointer;
-    }
-    
-    .cursor-default {
-        cursor: default;
-    }
-    
-    .transi-125 {
-        transition: 125ms;
-    }
-    
-    .transi-75 {
-        transition: 75ms;
-    }
-    
-    .letter-2 {
-        letter-spacing: 2px;
-    }
-    
-    header {
-        z-index: 4;
-        position: sticky;
-        top: 0;
-        background-image: url(img/pokemon-bg.jpg);
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: top;
-    }
-    
-    .header {
-        height: auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .header img:first-child {
-        height: 130px;
-        padding: 10px;
-    }
-    
-    #serachField {
-        display: flex;
-        width: 50%;
-    }
-    
-    .serachFieldclass {
-        margin: auto;
-        display: none;
-        width: 80%;
-    }
-    
-    serachFieldclass input:focus,
-    #serachField input:focus {
-        outline: none;
-    }
-    
-    .serachFieldclass input,
-    #serachField input {
-        color: blue;
-        font-weight: bold;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        border: 2px lightskyblue solid;
-        height: 40px;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        padding-left: 10px;
-        box-sizing: border-box;
-    }
-    
-    .serachFieldclass button,
-    #serachField button {
-        color: blue;
-        font-weight: bold;
-        margin: 0;
-        padding: 0;
-        padding-left: 10px;
-        padding-right: 10px;
-        border: 2px lightskyblue solid;
-        height: 40px;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        box-sizing: border-box;
-        background: white;
-        transition: 125ms;
-    }
-    
-    .serachFieldclass button:hover,
-    #serachField button:hover {
-        color: white;
-        background: blue;
-        transition: 125ms;
-    }
-    
-    header img:last-child {
-        height: 70px;
-        padding: 10px;
-        filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(85deg) brightness(106%) contrast(101%);
-    }
-    
-    main {
-        max-width: 1200px;
-        margin: auto;
-        background: transparent;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-    }
-    
-    .smallCart {
-        height: 350px;
-        width: 260px;
-        margin: 20px;
-        cursor: pointer;
-        border-radius: 30px;
-        padding: 20px;
-        box-sizing: border-box;
-        text-shadow: 2px 0 0px black, 3px 2px 0px rgba(77, 0, 38, 0.5), 6px 2px 3px rgba(77, 0, 13, 0.5), 9px 2px 9px rgba(77, 25, 0, 0.5), 9px 0 18px #FFD500, 11px 0 18px #806A00, 12px 2px 18px rgba(77, 66, 0, 0.5), 12px 0 30px #D4FF00, 14px 0 30px #6A8000, 15px 0 45px #80FF00, 17px 0 45px #408000, 17px 2px 45px rgba(38, 77, 0, 0.5), 2px 2px 2px rgba(255, 17, 255, 0);
-    }
-    
-    .smallCart {
-        display: inline-block;
-        vertical-align: middle;
-        -webkit-transform: perspective(1px) translateZ(0);
-        transform: perspective(1px) translateZ(0);
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        position: relative;
-        -webkit-transition-duration: 0.3s;
-        transition-duration: 0.3s;
-        -webkit-transition-property: transform;
-        transition-property: transform;
-    }
-    
-    .smallCart:before {
-        pointer-events: none;
-        position: absolute;
-        z-index: -1;
-        content: '';
-        top: 100%;
-        left: 5%;
-        height: 10px;
-        width: 90%;
-        opacity: 0;
-        background: -webkit-radial-gradient(center, ellipse, rgba(255, 255, 255, 0.65) 0%, rgba(0, 0, 0, 0) 80%);
-        background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.65) 0%, rgba(0, 0, 0, 0) 80%);
-        /* W3C */
-        -webkit-transition-duration: 0.3s;
-        transition-duration: 0.3s;
-        -webkit-transition-property: transform, opacity;
-        transition-property: transform, opacity;
-    }
-    
-    .smallCart:hover,
-    .smallCart:focus,
-    .smallCart:active {
-        -webkit-transform: translateY(-15px);
-        transform: translateY(-15px) scale(1.1);
-        /* move the element up by 5px */
-    }
-    
-    .smallCart:hover:before,
-    .smallCart:focus:before,
-    .smallCart:active:before {
-        opacity: 1;
-        -webkit-transform: translateY(5px);
-        transform: translateY(5px);
-        /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
-    }
-    
-    .frist-smallcart-container {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .frist-smallcart-container img {
-        width: 180px !important;
-        transition-duration: 0.3s;
-    }
-    
-    .frist-smallcart-container img:hover {
-        transform: translateY(-25px) scale(1.5);
-    }
-    
-    .secound-smallcart-container {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .secound-smallcart-container h3,
-    .secound-smallcart-container div {
-        margin-top: 20px;
-    }
-    
-    .secound-smallcart-container span:first-child {
-        margin-bottom: 10px;
-    }
-    
-    .secound-smallcart-container span {
-        min-width: 55px;
-        padding: 10px;
-        text-align: center;
-        border-radius: 20px;
-    }
-    
-    #pokeCard {
-        max-width: 600px;
-        width: 95vw;
-        min-height: calc(90vh - 150px);
-        border-radius: 30px;
-        position: relative;
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(128, 128, 128, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    #pokeId {
-        position: absolute;
-        top: 5%;
-        left: 50%;
-        transform: translateX(-50%);
-        text-transform: capitalize;
-        letter-spacing: 5px;
-    }
-    
-    #pokeImg {
-        z-index: 2;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 10%;
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    /* height: 100vh; */
+    font-family: 'Paytone One', sans-serif;
+    text-transform: capitalize;
+    background-image: url(img/pokemon-bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+    overflow-x: hidden;
+}
+
+ ::-webkit-scrollbar {
+    height: 5px;
+    width: 10px;
+}
+
+ ::-webkit-scrollbar-track {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(144, 238, 144, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+ ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(144, 238, 144, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+ ::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(144, 238, 144, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+.transi-125 {
+    transition: 125ms;
+}
+
+.transi-75 {
+    transition: 75ms;
+}
+
+.letter-2 {
+    letter-spacing: 2px;
+}
+
+header {
+    z-index: 4;
+    position: sticky;
+    top: 0;
+    background-image: url(img/pokemon-bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+}
+
+.header {
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img:first-child {
+    height: 130px;
+    padding: 10px;
+}
+
+#serachField {
+    display: flex;
+    width: 50%;
+}
+
+.serachFieldclass {
+    margin: auto;
+    display: none;
+    width: 80%;
+}
+
+serachFieldclass input:focus,
+#serachField input:focus {
+    outline: none;
+}
+
+.serachFieldclass input,
+#serachField input {
+    color: blue;
+    font-weight: bold;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: 2px lightskyblue solid;
+    height: 40px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.serachFieldclass button,
+#serachField button {
+    color: blue;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 2px lightskyblue solid;
+    height: 40px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-sizing: border-box;
+    background: white;
+    transition: 125ms;
+    cursor: pointer;
+}
+
+.serachFieldclass button:hover,
+#serachField button:hover {
+    color: white;
+    background: blue;
+    transition: 125ms;
+}
+
+header img:last-child {
+    height: 70px;
+    padding: 10px;
+}
+
+.filter-withe {
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(85deg) brightness(106%) contrast(101%);
+    cursor: pointer;
+}
+
+.filter-withe:hover {
+    transform: scale(1.3);
+}
+
+main {
+    padding-top: 25px;
+    max-width: 1200px;
+    margin: auto;
+    background: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.smallCart {
+    /* height: 350px; */
+    /* width: 260px; */
+    margin: 20px;
+    cursor: pointer;
+    border-radius: 30px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-shadow: 2px 0 0px black, 3px 2px 0px rgba(77, 0, 38, 0.5), 6px 2px 3px rgba(77, 0, 13, 0.5), 9px 2px 9px rgba(77, 25, 0, 0.5), 9px 0 18px #FFD500, 11px 0 18px #806A00, 12px 2px 18px rgba(77, 66, 0, 0.5), 12px 0 30px #D4FF00, 14px 0 30px #6A8000, 15px 0 45px #80FF00, 17px 0 45px #408000, 17px 2px 45px rgba(38, 77, 0, 0.5), 2px 2px 2px rgba(255, 17, 255, 0);
+    transition: 225ms;
+}
+
+.height700 {
+    height: 700px;
+}
+
+.width520 {
+    width: 520px;
+}
+
+.height350 {
+    height: 350px;
+}
+
+.width260 {
+    width: 260px;
+}
+
+.smallCart {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+}
+
+.smallCart:before {
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+    content: '';
+    top: 100%;
+    left: 5%;
+    height: 10px;
+    width: 90%;
+    opacity: 0;
+    background: -webkit-radial-gradient(center, ellipse, rgba(255, 255, 255, 0.65) 0%, rgba(0, 0, 0, 0) 80%);
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.65) 0%, rgba(0, 0, 0, 0) 80%);
+    /* W3C */
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.smallCart:hover,
+.smallCart:focus,
+.smallCart:active {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px) scale(1.1);
+    /* move the element up by 5px */
+}
+
+.smallCart:hover:before,
+.smallCart:focus:before,
+.smallCart:active:before {
+    opacity: 1;
+    -webkit-transform: translateY(5px);
+    transform: translateY(5px);
+}
+
+.frist-smallcart-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.frist-smallcart-container img {
+    width: 180px !important;
+    transition-duration: 0.3s;
+}
+
+.frist-smallcart-container img:hover {
+    transform: translateY(-25px) scale(1.5);
+}
+
+.secound-smallcart-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.secound-smallcart-container h3,
+.secound-smallcart-container div {
+    margin-top: 20px;
+}
+
+.secound-smallcart-container span:first-child {
+    margin-bottom: 10px;
+}
+
+.secound-smallcart-container span {
+    min-width: 55px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+#pokeCard {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 600px;
+    width: 95vw;
+    height: calc(90vh - 150px);
+    min-height: 600px;
+    padding: 30px;
+    border-radius: 30px;
+    /* background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(128, 128, 128, 1) 70%, rgba(36, 39, 28, 1) 100%); */
+}
+
+.closeicon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#closeContainer {
+    position: absolute;
+    width: 100%;
+    top: 20%;
+    left: 1%;
+    right: 1%;
+    /* justify-content: flex-end; */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#pokeId {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: capitalize;
+    letter-spacing: 5px;
+}
+
+#pokeImg {
+    z-index: 2;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    height: 40%;
+}
+
+.animation-scaledown {
+    animation: scaledown 0.5s forwards;
+}
+
+@keyframes scaledown {
+    0% {
         height: 40%;
     }
-    
-    .animation-scaledown {
-        animation: scaledown 0.5s forwards;
+    100% {
+        height: 30%;
     }
-    
-    @keyframes scaledown {
-        0% {
-            height: 40%;
-        }
-        100% {
-            height: 30%;
-        }
-    }
-    
-    #pokeName {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%);
-        text-transform: capitalize;
-        letter-spacing: 5px;
-    }
-    
-    #infoCard {
-        position: absolute;
-        bottom: 0;
-        height: 40%;
-        width: 100%;
-        border-radius: 30px;
+}
+
+#pokeName {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: capitalize;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+#pokeName span {
+    margin: 20px;
+    padding: 10px;
+    min-width: 70px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#infoCard {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    width: 100%;
+    border-radius: 30px;
+    background: transparent;
+}
+
+.animation-fadeup {
+    animation: fadeup 0.5s forwards;
+}
+
+@keyframes fadeup {
+    0% {
+        height: 35%;
         background: transparent;
     }
-    
-    .animation-fadeup {
-        animation: fadeup 0.5s forwards;
+    50% {
+        background: linear-gradient(30deg, rgba(17, 17, 17, 0.3) 0%, rgba(19, 29, 28, 0.3) 50%, rgba(29, 39, 30, 0.3) 100%);
     }
-    
-    @keyframes fadeup {
-        0% {
-            height: 40%;
-            background: transparent;
-        }
-        50% {
-            background: linear-gradient(30deg, rgba(17, 17, 17, 0.3) 0%, rgba(19, 29, 28, 0.3) 50%, rgba(29, 39, 30, 0.3) 100%);
-        }
-        100% {
-            height: 70%;
-            background: linear-gradient(30deg, rgba(17, 17, 17, 0.6) 0%, rgba(19, 29, 28, 0.6) 50%, rgba(29, 39, 30, 0.6) 100%);
-        }
+    100% {
+        height: 70%;
+        background: linear-gradient(30deg, rgba(17, 17, 17, 0.6) 0%, rgba(19, 29, 28, 0.6) 50%, rgba(29, 39, 30, 0.6) 100%);
     }
-    
-    #statusButton {
-        position: absolute;
-        top: 15%;
-        left: 50%;
-        transform: translateX(-50%);
+}
+
+#statusButton {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#statsTable {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+}
+
+#statsTable tr {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+#statsTable th:last-child {
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+    height: 10px;
+}
+
+#statsTable th:last-child span {
+    height: 100%;
+    width: 80%;
+    background: #454F4E;
+    border-radius: 10px;
+}
+
+#statsTable th:last-child div {
+    height: 100%;
+    background: #C8C7C8;
+    border-radius: 10px;
+}
+
+.continuebutton {
+    color: blue;
+    background: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px lightskyblue solid;
+    height: 40px;
+    min-width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.space {
+    height: 40px;
+    width: 100%;
+}
+
+#blurContainer {
+    z-index: 9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    animation: blurIn 0.4s forwards;
+}
+
+@keyframes blurIn {
+    0% {
+        background: rgba(255, 255, 255, 0.0);
     }
-    
-    #statsTable {
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
+    100% {
+        background: rgba(255, 255, 255, 0.6);
     }
-    
-    #statsTable tr {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        white-space: nowrap;
-    }
-    
-    #statsTable th:last-child {
-        display: flex;
-        justify-content: space-between;
-        width: 65%;
-        height: 10px;
-    }
-    
-    #statsTable th:last-child span {
-        height: 100%;
-        width: 80%;
-        background: #454F4E;
-        border-radius: 10px;
-    }
-    
-    #statsTable th:last-child div {
-        height: 100%;
-        background: #C8C7C8;
-        border-radius: 10px;
-    }
-    
-    .continuebutton {
-        color: blue;
-        background: white;
-        text-align: center;
-        font-weight: bold;
-        border-radius: 20px;
-        border: 2px lightskyblue solid;
-        height: 40px;
-        max-width: 50%;
-        margin: auto;
-        margin-top: 20px;
-        padding: 10px 5px;
-        box-sizing: border-box;
-        white-space: nowrap;
-    }
-    
-    .space {
-        height: 40px;
-    }
-    
-    .normal {
-        background-color: grey;
-    }
-    
-    .flying {
-        background-color: lightskyblue;
-    }
-    
-    .fire {
-        background-color: orangered;
-    }
-    
-    .grass {
-        background-color: green;
-    }
-    
-    .poison {
-        background-color: violet;
-    }
-    
-    .water {
-        background-color: turquoise;
-    }
-    
-    .bug {
-        background-color: lightgreen;
-    }
-    
-    .electric {
-        background-color: yellow;
-    }
-    
-    .ground {
-        background-color: burlywood;
-    }
-    
-    .fairy {
-        background-color: pink;
-    }
-    
-    .fighting {
-        background-color: brown;
-    }
-    
-    .psychic {
-        background-color: lightsalmon;
-    }
-    
-    .rock {
-        background-color: gainsboro;
-    }
-    
-    .steel {
-        background-color: steelblue;
-    }
-    
-    .ghost {
-        background-color: ghostwhite;
-    }
-    
-    .ice {
-        background-color: lightsteelblue;
-    }
-    
-    .dragon {
-        background-color: darkmagenta;
-    }
-    
-    .normal-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(128, 128, 128, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .flying-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(135, 206, 250, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .fire-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 69, 0, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .grass-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(0, 128, 0, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .poison-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(238, 130, 238, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .water-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(64, 224, 208, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .bug-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(144, 238, 144, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .electric-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 255, 0, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .ground-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(222, 184, 135, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .fairy-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 192, 203, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .fighting-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(165, 42, 42, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .psychic-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 160, 122, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .rock-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(220, 220, 220, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .steel-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(70, 130, 180, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .ghost-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(248, 248, 255, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .ice-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(176, 196, 222, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
-    
-    .dragon-bg {
-        background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(139, 0, 139, 1) 70%, rgba(36, 39, 28, 1) 100%);
-    }
+}
+
+.normal {
+    /* background-color: grey; */
+    border: 2px grey solid;
+}
+
+.flying {
+    /* background-color: lightskyblue; */
+    border: 2px lightskyblue solid;
+}
+
+.fire {
+    /* background-color: orangered; */
+    border: 2px orangered solid;
+}
+
+.grass {
+    /* background-color: green; */
+    border: 2px green solid;
+}
+
+.poison {
+    /* background-color: violet; */
+    border: 2px violet solid;
+}
+
+.water {
+    /* background-color: turquoise; */
+    border: 2px turquoise solid;
+}
+
+.bug {
+    /* background-color: lightgreen; */
+    border: 2px lightgreen solid;
+}
+
+.electric {
+    /* background-color: yellow; */
+    border: 2px yellow solid;
+}
+
+.ground {
+    /* background-color: burlywood; */
+    border: 2px burlywood solid;
+}
+
+.fairy {
+    /* background-color: pink; */
+    border: 2px pink solid;
+}
+
+.fighting {
+    /* background-color: brown; */
+    border: 2px brown solid;
+}
+
+.psychic {
+    /* background-color: lightsalmon; */
+    border: 2px lightsalmon solid;
+}
+
+.rock {
+    /* background-color: gainsboro; */
+    border: 2px gainsboro solid;
+}
+
+.steel {
+    /* background-color: steelblue; */
+    border: 2px steelblue solid;
+}
+
+.ghost {
+    /* background-color: ghostwhite; */
+    border: 2px ghostwhite solid;
+}
+
+.ice {
+    /* background-color: lightsteelblue; */
+    border: 2px lightsteelblue solid;
+}
+
+.dragon {
+    /* background-color: darkmagenta; */
+    border: 2px darkmagenta solid;
+}
+
+.normal-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(128, 128, 128, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.flying-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(135, 206, 250, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.fire-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 69, 0, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.grass-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(0, 128, 0, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.poison-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(238, 130, 238, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.water-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(64, 224, 208, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.bug-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(144, 238, 144, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.electric-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 255, 0, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.ground-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(222, 184, 135, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.fairy-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 192, 203, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.fighting-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(165, 42, 42, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.psychic-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(255, 160, 122, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.rock-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(220, 220, 220, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.steel-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(70, 130, 180, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.ghost-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(248, 248, 255, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.ice-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(176, 196, 222, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
+
+.dragon-bg {
+    background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(139, 0, 139, 1) 70%, rgba(36, 39, 28, 1) 100%);
+}
