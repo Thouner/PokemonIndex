@@ -13,4 +13,7 @@
     #serachField input {
         padding-left: 4px;
     }
+    #pokeCard {
+        width: 90%;
+    }
 }
