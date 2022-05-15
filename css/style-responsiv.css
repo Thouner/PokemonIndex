@@ -1,3 +1,15 @@
-@media screen and (max-width: 1024px) {}
-
-@media screen and (max-width: 650px) {}
+@media screen and (max-width: 600px) {
+    #serachField {
+        display: none;
+    }
+    .serachFieldclass {
+        display: flex;
+    }
+    .continuebutton {
+        max-width: 80%;
+    }
+    .serachFieldclass input,
+    #serachField input {
+        padding-left: 4px;
+    }
+}

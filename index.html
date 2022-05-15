@@ -17,48 +17,33 @@
     <script src="js/script.js"></script>
 </head>
 
-<body onload="loadPokeon()">
+<body onload="allPokemon()">
 
     <header>
-        <img src="img/pokemon-header.png" alt="">
-        <div id="serachField" class="d-flex">
+        <div class="header">
+            <img src="img/pokemon-header.png" alt="">
+            <div id="serachField" class="d-flex">
+                <input type="text" placeholder="Enter Number or Name">
+                <button>Search</button>
+            </div>
+            <img src="img/open-heart.png" alt="">
+        </div>
+        <div class="serachFieldclass">
             <input type="text" placeholder="Enter Number or Name">
             <button>Search</button>
         </div>
-        <img src="img/open-heart.png" alt="">
     </header>
 
-    <main>
-        <div class="smallCart">
-            <div class="frist-smallcart-container">
-                <img src="img/pokemon-header.png" alt="">
-                <span>#25</span>
-            </div>
-            <div class="secound-smallcart-container">
-                <h3>Pikachu</h3>
-                <div class="d-flex f-colum">
-                    <span>Electric</span>
-                    <span>Electric</span>
-                    <span>Electric</span>
-                </div>
-            </div>
-        </div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
-        <div class="smallCart"></div>
+    <main id="maincontainer">
+
     </main>
 
+    <div onclick="morePokemon()" class="continuebutton">Weitere Pokemon anzeigen</div>
+    <div class="space"></div>
 
 
 
-
-    <div id="bigCart" class=" d-flex j-center-a-center">
+    <!-- <div id="bigCart" class=" d-flex j-center-a-center">
         <div id="pokeCard" class="color-white d-flex j-center-a-center">
             <div id="pokeId"></div>
             <img id="pokeImg" src="" alt="">
@@ -68,7 +53,7 @@
                 <table id="statsTable" class=""></table>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>
