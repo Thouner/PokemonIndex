@@ -129,9 +129,15 @@ function removeBounceAnimation() {
 
 function swipeLeft(i) {
     i = i - 1;
-
     showBiger(i);
     removeBounceAnimation();
+    if (showAbout === true) {
+        openAbout(i);
+    } else if (showStats === true) {
+        openStats(i);
+    } else if (showMoves === true) {
+        openMoves(i)
+    }
 }
 
 
@@ -146,6 +152,13 @@ async function swipeRight(i) {
     }
     showBiger(i);
     removeBounceAnimation();
+    if (showAbout === true) {
+        openAbout(i);
+    } else if (showStats === true) {
+        openStats(i);
+    } else if (showMoves === true) {
+        openMoves(i)
+    }
 }
 
 
@@ -218,7 +231,7 @@ function closeData(i) {
 
 function aboutText(i) {
     document.getElementById('statsTable').innerHTML = '';
-    document.getElementById('statsTable').innerHTML += ` 
+    document.getElementById('statsTable').innerHTML += /*html*/ ` 
             <tr>
                 <th>Species</th>
                 <th class=" j-flex-end">${allPokemons[i]['species']['name']}</th>
@@ -242,7 +255,7 @@ function aboutText(i) {
             `;
     for (let j = 0; j < allPokemons[i]['abilities'].length; j++) {
         const element = allPokemons[i]['abilities'][j]['ability']['name'];
-        document.getElementById('abilities').innerHTML += ` 
+        document.getElementById('abilities').innerHTML += /*html*/ ` 
 ${element}<br>
     `;
     }
@@ -253,14 +266,18 @@ function statsText(i) {
     document.getElementById('statsTable').innerHTML = '';
     for (let j = 0; j < allPokemons[i]['stats'].length; j++) {
         const element = allPokemons[i]['stats'][j];
-        document.getElementById('statsTable').innerHTML += ` 
+        document.getElementById('statsTable').innerHTML += /*html*/ ` 
             <tr>
                 <th>${element['stat']['name'].replace(/special-/i, "Sp. ")}</th>
                 <th>${element['base_stat']}
-                    <span><div style="width: ${element['base_stat']}%;"></div></span>
+                    <span><div id="data${i}" style="width: ${element['base_stat']}%;" class="background-light"></div></span>
                 </th>
             </tr>   
             `;
+        if (element['base_stat'] == 45) {
+            document.getElementById(`data${i}`).classList.remove('background-light');
+            document.getElementById(`data${i}`).classList.add('background-green');
+        }
     }
 }
 
@@ -269,10 +286,8 @@ function movesText(i) {
     document.getElementById('statsTable').innerHTML = '';
     for (let j = 0; j < allPokemons[i]['moves'].length; j++) {
         const element = allPokemons[i]['moves'][j]['move']['name'];
-        document.getElementById('movesId').innerHTML += ` 
+        document.getElementById('movesId').innerHTML += /*html*/ ` 
             <span class="movesspan w-space-nowrap">${element}</span>
             `;
     }
 }
-
-// &nbsp; &nbsp;
