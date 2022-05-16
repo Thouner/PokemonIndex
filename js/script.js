@@ -5,6 +5,7 @@ let maxPokemon = displayPokemon + 1;
 let showAbout = false;
 let showStats = false;
 let showMoves = false;
+let favoritesArray = [];
 
 
 
@@ -12,8 +13,8 @@ async function allPokemon() {
     for (let i = beginPokemon; i < maxPokemon; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
-        currentPokemon = await response.json();
-        allPokemons[i] = currentPokemon;
+        allPokemons[i] = await response.json();
+        favoritesArray[i] = false;
         allPokemonContent(i);
 
     }
@@ -80,10 +81,12 @@ function showBiger(i) {
 function showBigerText(i, firstType, secoundType) {
     return /*html*/ `
     <div id="pokeCard" class="color-white animation-bounceInUp ${firstType}-bg">
+        <img id="favHeartopen" onclick="addFavorites(${i})" class="filter-withe hearticon" src="img/open-heart.png" alt="">
+        <img id="favHeartclose" onclick="exciseFavorites(${i})" class="filter-withe hearticon d-none" src="img/full-heart.png" alt="">
         <img  onclick="closeBiger()" class="filter-withe closeicon" src="icon/close.png" alt="">
         <div id="closeContainer" class="d-flex j-space-betwen">
             <img id="leftswipe" onclick="swipeLeft(${i})" class="filter-withe" src="icon/left.png" alt="">
-            <img onclick="swipeRight(${i})" class="filter-withe" src="icon/right.png" alt="">
+            <img id="rightswipe" onclick="swipeRight(${i})" class="filter-withe" src="icon/right.png" alt="">
         </div>
         <h3 id="pokeId">#${i}</h3>
         <img id="pokeImg" src="${allPokemons[i]['sprites']['other']['home']['front_default']}" alt="">
@@ -133,10 +136,13 @@ function swipeLeft(i) {
     removeBounceAnimation();
     if (showAbout === true) {
         openAbout(i);
+        changeAnimation();
     } else if (showStats === true) {
         openStats(i);
+        changeAnimation();
     } else if (showMoves === true) {
-        openMoves(i)
+        openMoves(i);
+        changeAnimation();
     }
 }
 
@@ -154,11 +160,23 @@ async function swipeRight(i) {
     removeBounceAnimation();
     if (showAbout === true) {
         openAbout(i);
+        changeAnimation();
     } else if (showStats === true) {
         openStats(i);
+        changeAnimation();
     } else if (showMoves === true) {
         openMoves(i)
+        changeAnimation();
     }
+}
+
+
+function changeAnimation() {
+    document.getElementById('infoCard').classList.remove('animation-fadeup');
+    document.getElementById('pokeImg').classList.remove('animation-scaledown');
+    document.getElementById('infoCard').style.height = '70%';
+    document.getElementById('infoCard').style.background = 'linear-gradient(30deg, rgba(17, 17, 17, 0.6) 0%, rgba(19, 29, 28, 0.6) 50%, rgba(29, 39, 30, 0.6) 100%)';
+    document.getElementById('pokeImg').style.height = '30%';
 }
 
 
@@ -182,9 +200,7 @@ function openAbout(i) {
     document.getElementById('aboutShadow').classList.remove('d-none');
     document.getElementById('statsShadow').classList.add('d-none');
     document.getElementById('movesShadow').classList.add('d-none');
-
     aboutText(i);
-
 }
 
 function openStats(i) {
@@ -270,13 +286,13 @@ function statsText(i) {
             <tr>
                 <th>${element['stat']['name'].replace(/special-/i, "Sp. ")}</th>
                 <th>${element['base_stat']}
-                    <span><div id="data${i}" style="width: ${element['base_stat']}%;" class="background-light"></div></span>
+                    <span><div id="data${j}" style="width: ${element['base_stat']}%;" class="background-light"></div></span>
                 </th>
             </tr>   
             `;
-        if (element['base_stat'] == 45) {
-            document.getElementById(`data${i}`).classList.remove('background-light');
-            document.getElementById(`data${i}`).classList.add('background-green');
+        if (element['base_stat'] > 50) {
+            document.getElementById(`data${j}`).classList.remove('background-light');
+            document.getElementById(`data${j}`).classList.add('background-green');
         }
     }
 }
@@ -290,4 +306,61 @@ function movesText(i) {
             <span class="movesspan w-space-nowrap">${element}</span>
             `;
     }
+}
+
+
+function keydown(e) {
+    if (e.keyCode == 13) {
+        searchPokemon();
+    }
+}
+
+
+async function searchPokemon() {
+    let value = document.getElementById('searchContainer').value.toLowerCase();
+    let url = await `https://pokeapi.co/api/v2/pokemon/${value}`;
+    if (url) {
+        let response = await fetch(url);
+        let currentPokemon = await response.json();
+        let i = currentPokemon['id']
+        allPokemons[i] = currentPokemon;
+        showBiger(i);
+        if (i > displayPokemon) {
+            document.getElementById('leftswipe').classList.add('d-none');
+            document.getElementById('rightswipe').classList.add('d-none');
+        }
+    } else {
+        alert('no Pokemon could be found');
+    }
+
+    document.getElementById('searchContainer').value = '';
+}
+
+
+function addFavorites(i) {
+    document.getElementById('favHeartopen').classList.add('d-none');
+    document.getElementById('favHeartclose').classList.remove('d-none');
+    favoritesArray[i] = true;
+}
+
+
+function exciseFavorites(i) {
+    document.getElementById('favHeartopen').classList.remove('d-none');
+    document.getElementById('favHeartclose').classList.add('d-none');
+    favoritesArray[i] = false;
+}
+
+
+function openFavorites() {
+    document.getElementById('openFavorite').classList.add('d-none');
+    document.getElementById('closeFavorite').classList.remove('d-none');
+    document.getElementById('maincontainer').innerHTML = /*html*/ `
+    <div>hallo</div>
+    `;
+}
+
+function closeFavorites() {
+    document.getElementById('openFavorite').classList.remove('d-none');
+    document.getElementById('closeFavorite').classList.add('d-none');
+    allPokemon();
 }

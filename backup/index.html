@@ -23,10 +23,11 @@
         <div class="header">
             <img src="img/pokemon-header.png" alt="">
             <div id="serachField" class="d-flex">
-                <input type="text" placeholder="Enter Number or Name">
-                <button>Search</button>
+                <input id="searchContainer" type="text" placeholder="Enter Number or Name">
+                <button onclick="searchPokemon()">Search</button>
             </div>
-            <img class="filter-withe" src="img/open-heart.png" alt="">
+            <img id="openFavorite" onclick="openFavorites()" class="filter-withe" src="img/open-heart.png" alt="">
+            <img id="closeFavorite" onclick="closeFavorites()" class="filter-withe d-none" src="img/full-heart.png" alt="">
         </div>
         <div class="serachFieldclass">
             <input type="text" placeholder="Enter Number or Name">
@@ -39,6 +40,7 @@
     </main>
     <div id="blurContainer" class="d-none">
         <div id="bigCart" class=" d-flex j-center-a-center"></div>
+
     </div>
 
     <footer class="continuebutton">

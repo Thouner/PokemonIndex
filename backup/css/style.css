@@ -139,7 +139,8 @@ serachFieldclass input:focus,
     transition: 125ms;
 }
 
-header img:last-child {
+#openFavorite,
+#closeFavorite {
     height: 70px;
     padding: 10px;
 }
@@ -390,6 +391,13 @@ main {
     right: 20px;
 }
 
+.hearticon {
+    z-index: 4;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
 #closeContainer {
     z-index: 20;
     position: absolute;
@@ -551,6 +559,7 @@ main {
 #statusButton,
 #movesButton {
     margin: 0 16px;
+    cursor: pointer;
 }
 
 #statsTable {
