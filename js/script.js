@@ -2,6 +2,9 @@ let allPokemons = [];
 let beginPokemon = 1;
 let displayPokemon = 24;
 let maxPokemon = displayPokemon + 1;
+let showAbout = false;
+let showStats = false;
+let showMoves = false;
 
 
 
@@ -107,7 +110,7 @@ function showBigerText(i, firstType, secoundType) {
                     <div id="movesShadow" class="buttonshadow d-none"></div>
                 </div>
             </div>
-            <table id="statsTable" class=""></table>
+            <table id="statsTable" class=""><div id="movesId" class="d-flex f-wrap overflow-y-auto"></div></table>
         </div>
     </div>
 `;
@@ -146,53 +149,61 @@ async function swipeRight(i) {
 }
 
 
-function openAbout(i) {
+function showDatas(i) {
+    document.getElementById('movesId').innerHTML = '';
     document.getElementById('pokeImg').classList.remove('animation-scaleup');
     document.getElementById('pokeImg').classList.add('animation-scaledown');
     document.getElementById('infoCard').classList.remove('animation-fadedown');
     document.getElementById('infoCard').classList.add('animation-fadeup');
     document.getElementById('pokeName').classList.add('d-none');
     document.getElementById('closedata').classList.remove('d-none');
+    document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['name']}</h2>`;
+}
+
+
+function openAbout(i) {
+    showAbout = true;
+    showStats = false;
+    showMoves = false;
+    showDatas(i);
     document.getElementById('aboutShadow').classList.remove('d-none');
     document.getElementById('statsShadow').classList.add('d-none');
     document.getElementById('movesShadow').classList.add('d-none');
-    document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['name']}</h2>`;
+
     aboutText(i);
 
 }
 
 function openStats(i) {
-    document.getElementById('pokeImg').classList.remove('animation-scaleup');
-    document.getElementById('pokeImg').classList.add('animation-scaledown');
-    document.getElementById('infoCard').classList.remove('animation-fadedown');
-    document.getElementById('infoCard').classList.add('animation-fadeup');
-    document.getElementById('pokeName').classList.add('d-none');
-    document.getElementById('closedata').classList.remove('d-none');
-    document.getElementById('statsShadow').classList.remove('d-none');
+    showAbout = false;
+    showStats = true;
+    showMoves = false;
+    showDatas(i);
     document.getElementById('aboutShadow').classList.add('d-none');
+    document.getElementById('statsShadow').classList.remove('d-none');
     document.getElementById('movesShadow').classList.add('d-none');
-    document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['name']}</h2>`;
     statsText(i);
 }
 
 
 function openMoves(i) {
-    document.getElementById('pokeImg').classList.remove('animation-scaleup');
-    document.getElementById('pokeImg').classList.add('animation-scaledown');
-    document.getElementById('infoCard').classList.remove('animation-fadedown');
-    document.getElementById('infoCard').classList.add('animation-fadeup');
-    document.getElementById('pokeName').classList.add('d-none');
-    document.getElementById('closedata').classList.remove('d-none');
-    document.getElementById('movesShadow').classList.remove('d-none');
+    showAbout = false;
+    showStats = false;
+    showMoves = true;
+    showDatas(i);
     document.getElementById('aboutShadow').classList.add('d-none');
     document.getElementById('statsShadow').classList.add('d-none');
-    document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['name']}</h2>`;
-    // movesText(i);
+    document.getElementById('movesShadow').classList.remove('d-none');
+    movesText(i);
 }
 
 
 function closeData(i) {
+    showAbout = false;
+    showStats = false;
+    showMoves = false;
     document.getElementById('statsTable').innerHTML = '';
+    document.getElementById('movesId').innerHTML = '';
     document.getElementById('pokeImg').classList.remove('animation-scaledown');
     document.getElementById('pokeImg').classList.add('animation-scaleup');
     document.getElementById('infoCard').classList.remove('animation-fadeup');
@@ -207,31 +218,36 @@ function closeData(i) {
 
 function aboutText(i) {
     document.getElementById('statsTable').innerHTML = '';
-
     document.getElementById('statsTable').innerHTML += ` 
             <tr>
                 <th>Species</th>
-                <th>${allPokemons[i]['species']['name']}</th>
+                <th class=" j-flex-end">${allPokemons[i]['species']['name']}</th>
             </tr>
             <tr>
                 <th>ID</th>
-                <th>#${i}</th>
+                <th class=" j-flex-end">#${i}</th>
             </tr> 
             <tr>
                 <th>Height</th>
-                <th>#${allPokemons[i]['height']}</th>
+                <th class="text-lowercase j-flex-end">${allPokemons[i]['height']}0 cm</th>
             </tr> 
             <tr>
                 <th>Weight</th>
-                <th>#${allPokemons[i]['weight']}</th>
+                <th class="text-lowercase j-flex-end">${(allPokemons[i]['weight'] / 10).toFixed(2)} kg</th>
             </tr> 
             <tr>
                 <th>Abilities</th>
-                <th>#${i}</th>
+                <th id="abilities" class="text-end j-flex-end"></th>
             </tr> 
             `;
-
+    for (let j = 0; j < allPokemons[i]['abilities'].length; j++) {
+        const element = allPokemons[i]['abilities'][j]['ability']['name'];
+        document.getElementById('abilities').innerHTML += ` 
+${element}<br>
+    `;
+    }
 }
+
 
 function statsText(i) {
     document.getElementById('statsTable').innerHTML = '';
@@ -248,17 +264,15 @@ function statsText(i) {
     }
 }
 
+
 function movesText(i) {
     document.getElementById('statsTable').innerHTML = '';
-    for (let j = 0; j < allPokemons[i]['stats'].length; j++) {
-        const element = allPokemons[i]['stats'][j];
-        document.getElementById('statsTable').innerHTML += ` 
-            <tr>
-                <th>${element['stat']['name'].replace(/special-/i, "Sp. ")}</th>
-                <th>${element['base_stat']}
-                    <span><div style="width: ${element['base_stat']}%;"></div></span>
-                </th>
-            </tr>   
+    for (let j = 0; j < allPokemons[i]['moves'].length; j++) {
+        const element = allPokemons[i]['moves'][j]['move']['name'];
+        document.getElementById('movesId').innerHTML += ` 
+            <span class="movesspan w-space-nowrap">${element}</span>
             `;
     }
 }
+
+// &nbsp; &nbsp;

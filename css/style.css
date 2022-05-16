@@ -18,6 +18,10 @@ body {
     overflow-x: hidden;
 }
 
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
  ::-webkit-scrollbar {
     height: 5px;
     width: 10px;
@@ -386,6 +390,7 @@ main {
 }
 
 #closeContainer {
+    z-index: 20;
     position: absolute;
     width: 100%;
     top: 20%;
@@ -544,7 +549,7 @@ main {
 #aboutButton,
 #statusButton,
 #movesButton {
-    margin: 0 20px;
+    margin: 0 16px;
 }
 
 #statsTable {
@@ -590,7 +595,8 @@ main {
     border-radius: 20px;
     border: 2px lightskyblue solid;
     height: 40px;
-    min-width: 50%;
+    min-width: 40%;
+    width: 45%;
     margin: auto;
     margin-top: 20px;
     padding: 10px 5px;
@@ -621,6 +627,25 @@ main {
     100% {
         background: rgba(255, 255, 255, 0.6);
     }
+}
+
+.movesspan {
+    border: 1px solid lightskyblue;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 10px;
+    height: fit-content;
+}
+
+#movesId {
+    position: absolute;
+    justify-content: center;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding-bottom: 20px;
+    height: 55%;
 }
 
 .normal {

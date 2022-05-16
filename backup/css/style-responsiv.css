@@ -7,10 +7,25 @@
     }
     .continuebutton {
         max-width: 90%;
-        min-width: 50%;
+        min-width: 80%;
     }
     .serachFieldclass input,
     #serachField input {
         padding-left: 4px;
+    }
+    #pokeCard {
+        top: 0;
+        width: 90%;
+        height: 100%;
+    }
+    #statsTable {
+        top: 35%;
+    }
+    #infoCard {
+        overflow-y: scroll;
+    }
+    #movesId {
+        margin-left: 10px;
+        width: calc(100% - 20px);
     }
 }

@@ -26,6 +26,10 @@
        text-align: center;
    }
    
+   .text-end {
+       text-align: end;
+   }
+   
    .text-deco-underline {
        text-decoration: underline;
    }
@@ -36,4 +40,8 @@
    
    .text-uppercase {
        text-transform: uppercase;
+   }
+   
+   .text-lowercase {
+       text-transform: lowercase;
    }

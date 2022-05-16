@@ -18,6 +18,10 @@ body {
     overflow-x: hidden;
 }
 
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
  ::-webkit-scrollbar {
     height: 5px;
     width: 10px;
@@ -268,7 +272,7 @@ main {
     min-width: 55px;
     padding: 10px;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 30px;
 }
 
 #pokeCard {
@@ -282,7 +286,101 @@ main {
     min-height: 600px;
     padding: 30px;
     border-radius: 30px;
-    /* background: linear-gradient(30deg, rgba(17, 17, 17, 1) 0%, rgba(21, 72, 68, 1) 40%, rgba(128, 128, 128, 1) 70%, rgba(36, 39, 28, 1) 100%); */
+}
+
+.animation-bounceInUp {
+    -webkit-animation-name: bounceInUp;
+    animation-name: bounceInUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceInUp {
+    0%,
+    60%,
+    75%,
+    90%,
+    100% {
+        -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 3000px, 0);
+        transform: translate3d(0, 3000px, 0)translateX(-50%);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0)translateX(-50%);
+    }
+    75% {
+        -webkit-transform: translate3d(0, 10px, 0);
+        transform: translate3d(0, 10px, 0)translateX(-50%);
+    }
+    90% {
+        -webkit-transform: translate3d(0, -5px, 0);
+        transform: translate3d(0, -5px, 0)translateX(-50%);
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)translateX(-50%);
+    }
+}
+
+@keyframes bounceInUp {
+    0%,
+    60%,
+    75%,
+    90%,
+    100% {
+        -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 3000px, 0);
+        transform: translate3d(0, 3000px, 0)translateX(-50%);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0)translateX(-50%);
+    }
+    75% {
+        -webkit-transform: translate3d(0, 10px, 0);
+        transform: translate3d(0, 10px, 0)translateX(-50%);
+    }
+    90% {
+        -webkit-transform: translate3d(0, -5px, 0);
+        transform: translate3d(0, -5px, 0)translateX(-50%);
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)translateX(-50%);
+    }
+}
+
+#pokeCard:before {
+    pointer-events: none;
+    position: absolute;
+    z-index: 10;
+    content: '';
+    top: 100%;
+    left: 5%;
+    height: 10px;
+    width: 90%;
+    background: -webkit-radial-gradient(center, ellipse, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 80%);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 80%);
+    -webkit-transform: translateY(15px);
+    transform: translateY(15px);
+    /* W3C */
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform, opacity;
+    transition-property: transform, opacity;
 }
 
 .closeicon {
@@ -292,6 +390,7 @@ main {
 }
 
 #closeContainer {
+    z-index: 20;
     position: absolute;
     width: 100%;
     top: 20%;
@@ -304,7 +403,7 @@ main {
 
 #pokeId {
     position: absolute;
-    top: 5%;
+    top: 1.5%;
     left: 50%;
     transform: translateX(-50%);
     text-transform: capitalize;
@@ -333,6 +432,19 @@ main {
     }
 }
 
+.animation-scaleup {
+    animation: scaleup 0.5s forwards;
+}
+
+@keyframes scaleup {
+    0% {
+        height: 30%;
+    }
+    100% {
+        height: 40%;
+    }
+}
+
 #pokeName {
     position: absolute;
     top: 50%;
@@ -344,11 +456,14 @@ main {
 }
 
 #pokeName span {
+    border-radius: 20px;
+    text-align: center;
+}
+
+.mar-pad-wid {
     margin: 20px;
     padding: 10px;
     min-width: 70px;
-    border-radius: 20px;
-    text-align: center;
 }
 
 #infoCard {
@@ -380,16 +495,66 @@ main {
     }
 }
 
-#statusButton {
+.animation-fadedown {
+    animation: fadedown 0.5s forwards;
+}
+
+@keyframes fadedown {
+    0% {
+        height: 70%;
+        background: linear-gradient(30deg, rgba(17, 17, 17, 0.6) 0%, rgba(19, 29, 28, 0.6) 50%, rgba(29, 39, 30, 0.6) 100%);
+    }
+    50% {
+        background: linear-gradient(30deg, rgba(17, 17, 17, 0.3) 0%, rgba(19, 29, 28, 0.3) 50%, rgba(29, 39, 30, 0.3) 100%);
+    }
+    100% {
+        height: 35%;
+        background: transparent;
+    }
+}
+
+.buttonContainer {
     position: absolute;
-    top: 15%;
+    top: 25%;
     left: 50%;
     transform: translateX(-50%);
 }
 
+.buttonContainer button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+}
+
+.buttonContainer button:hover {
+    transform: scale(1.3);
+}
+
+.buttonshadow {
+    width: 60%;
+    box-shadow: 0px 2px 3px 2px rgba(255, 255, 255, 0.9);
+    animation: slidewide 0.225s forwards;
+}
+
+@keyframes slidewide {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+#aboutButton,
+#statusButton,
+#movesButton {
+    margin: 0 16px;
+}
+
 #statsTable {
     position: absolute;
-    top: 25%;
+    top: 40%;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
@@ -430,7 +595,8 @@ main {
     border-radius: 20px;
     border: 2px lightskyblue solid;
     height: 40px;
-    min-width: 50%;
+    min-width: 40%;
+    width: 45%;
     margin: auto;
     margin-top: 20px;
     padding: 10px 5px;
@@ -463,89 +629,108 @@ main {
     }
 }
 
+.movesspan {
+    border: 1px solid lightskyblue;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 10px;
+    height: fit-content;
+}
+
+#movesId {
+    position: absolute;
+    justify-content: center;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding-bottom: 20px;
+    height: 55%;
+}
+
 .normal {
     /* background-color: grey; */
-    border: 2px grey solid;
+    border: 3.5px grey solid;
 }
 
 .flying {
     /* background-color: lightskyblue; */
-    border: 2px lightskyblue solid;
+    border: 3.5px lightskyblue solid;
 }
 
 .fire {
     /* background-color: orangered; */
-    border: 2px orangered solid;
+    border: 3.5px orangered solid;
 }
 
 .grass {
     /* background-color: green; */
-    border: 2px green solid;
+    border: 3.5px green solid;
 }
 
 .poison {
     /* background-color: violet; */
-    border: 2px violet solid;
+    border: 3.5px violet solid;
 }
 
 .water {
     /* background-color: turquoise; */
-    border: 2px turquoise solid;
+    border: 3.5px turquoise solid;
 }
 
 .bug {
     /* background-color: lightgreen; */
-    border: 2px lightgreen solid;
+    border: 3.5px lightgreen solid;
 }
 
 .electric {
     /* background-color: yellow; */
-    border: 2px yellow solid;
+    border: 3.5px yellow solid;
 }
 
 .ground {
     /* background-color: burlywood; */
-    border: 2px burlywood solid;
+    border: 3.5px burlywood solid;
 }
 
 .fairy {
     /* background-color: pink; */
-    border: 2px pink solid;
+    border: 3.5px pink solid;
 }
 
 .fighting {
     /* background-color: brown; */
-    border: 2px brown solid;
+    border: 3.5px brown solid;
 }
 
 .psychic {
     /* background-color: lightsalmon; */
-    border: 2px lightsalmon solid;
+    border: 3.5px lightsalmon solid;
 }
 
 .rock {
     /* background-color: gainsboro; */
-    border: 2px gainsboro solid;
+    border: 3.5px gainsboro solid;
 }
 
 .steel {
     /* background-color: steelblue; */
-    border: 2px steelblue solid;
+    border: 3.5px steelblue solid;
 }
 
 .ghost {
     /* background-color: ghostwhite; */
-    border: 2px ghostwhite solid;
+    border: 3.5px ghostwhite solid;
 }
 
 .ice {
     /* background-color: lightsteelblue; */
-    border: 2px lightsteelblue solid;
+    border: 3.5px lightsteelblue solid;
 }
 
 .dragon {
     /* background-color: darkmagenta; */
-    border: 2px darkmagenta solid;
+    border: 3.5px darkmagenta solid;
 }
 
 .normal-bg {
