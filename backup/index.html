@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/style-text.css">
     <link rel="icon" type="image/x-icon" href="icon/catching_pokemon.png">
     <script src="js/script.js"></script>
+    <script src="js/script2.js"></script>
 </head>
 
 <body onload="allPokemon()">
@@ -23,7 +24,7 @@
         <div class="header">
             <img src="img/pokemon-header.png" alt="">
             <div id="serachField" class="d-flex">
-                <input id="searchContainer" type="text" placeholder="Enter Number or Name">
+                <input id="searchContainer" type="text" onkeyup="keydown(event)" placeholder="Enter Number or Name">
                 <button onclick="searchPokemon()">Search</button>
             </div>
             <img id="openFavorite" onclick="openFavorites()" class="filter-withe" src="img/open-heart.png" alt="">
@@ -43,7 +44,7 @@
 
     </div>
 
-    <footer class="continuebutton">
+    <footer id="footerId" class="continuebutton">
         <div onclick="morePokemon()">Weitere Pokemon anzeigen</div>
         <div class="space"></div>
     </footer>

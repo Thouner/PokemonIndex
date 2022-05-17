@@ -94,7 +94,7 @@ header {
     width: 80%;
 }
 
-serachFieldclass input:focus,
+.serachFieldclass input:focus,
 #serachField input:focus {
     outline: none;
 }

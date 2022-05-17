@@ -5,8 +5,8 @@ let maxPokemon = displayPokemon + 1;
 let showAbout = false;
 let showStats = false;
 let showMoves = false;
-let favoritesArray = [];
-
+let favoritesArray
+let showFavorits = false;
 
 
 async function allPokemon() {
@@ -14,14 +14,13 @@ async function allPokemon() {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         allPokemons[i] = await response.json();
-        favoritesArray[i] = false;
         allPokemonContent(i);
-
     }
 }
 
 
 function allPokemonContent(i) {
+    load();
     let firstType = allPokemons[i]['types'][0]['type']['name'];
     let secoundType = '';
     if (allPokemons[i]['types'][1]) {
@@ -66,15 +65,44 @@ function showBiger(i) {
         secoundType = allPokemons[i]['types'][1]['type']['name']
     }
     document.getElementById('bigCart').innerHTML = showBigerText(i, firstType, secoundType);
+    checkLeftswipe(i)
+    checkSecoundType(secoundType)
+    checkFavoritesArray(i)
+    checkShowFavorits()
+    setTimeout(removeBounceAnimation, 1200);
+}
+
+
+function checkLeftswipe(i) {
     if (i == 1) {
         document.getElementById('leftswipe').classList.add('d-none');
         document.getElementById('closeContainer').classList.remove('space-between');
         document.getElementById('closeContainer').classList.add('j-flex-end');
     }
+}
+
+
+function checkSecoundType(secoundType) {
     if (!secoundType) {
         document.getElementById('secoundtype').classList.remove('mar-pad-wid');
     }
-    setTimeout(removeBounceAnimation, 1200);
+}
+
+
+function checkFavoritesArray(i) {
+    if (favoritesArray[i] == true) {
+        addFavorites(i)
+    } else {
+        exciseFavorites(i)
+    }
+}
+
+
+function checkShowFavorits() {
+    if (showFavorits == true) {
+        document.getElementById('leftswipe').classList.add('d-none');
+        document.getElementById('rightswipe').classList.add('d-none');
+    }
 }
 
 
@@ -117,7 +145,6 @@ function showBigerText(i, firstType, secoundType) {
         </div>
     </div>
 `;
-
 }
 
 
@@ -125,27 +152,18 @@ function closeBiger() {
     document.getElementById('blurContainer').classList.add('d-none');
 }
 
+
 function removeBounceAnimation() {
     document.getElementById('pokeCard').classList.remove('animation-bounceInUp');
-
 }
+
 
 function swipeLeft(i) {
     i = i - 1;
     showBiger(i);
     removeBounceAnimation();
-    if (showAbout === true) {
-        openAbout(i);
-        changeAnimation();
-    } else if (showStats === true) {
-        openStats(i);
-        changeAnimation();
-    } else if (showMoves === true) {
-        openMoves(i);
-        changeAnimation();
-    }
+    checkOpenData(i);
 }
-
 
 
 async function swipeRight(i) {
@@ -158,6 +176,11 @@ async function swipeRight(i) {
     }
     showBiger(i);
     removeBounceAnimation();
+    checkOpenData(i);
+}
+
+
+function checkOpenData(i) {
     if (showAbout === true) {
         openAbout(i);
         changeAnimation();
@@ -233,6 +256,12 @@ function closeData(i) {
     showMoves = false;
     document.getElementById('statsTable').innerHTML = '';
     document.getElementById('movesId').innerHTML = '';
+    closeDataChangeAnimation();
+    document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['id']}</h2>`;
+}
+
+
+function closeDataChangeAnimation() {
     document.getElementById('pokeImg').classList.remove('animation-scaledown');
     document.getElementById('pokeImg').classList.add('animation-scaleup');
     document.getElementById('infoCard').classList.remove('animation-fadeup');
@@ -242,125 +271,4 @@ function closeData(i) {
     document.getElementById('aboutShadow').classList.add('d-none');
     document.getElementById('statsShadow').classList.add('d-none');
     document.getElementById('movesShadow').classList.add('d-none');
-    document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['id']}</h2>`;
-}
-
-function aboutText(i) {
-    document.getElementById('statsTable').innerHTML = '';
-    document.getElementById('statsTable').innerHTML += /*html*/ ` 
-            <tr>
-                <th>Species</th>
-                <th class=" j-flex-end">${allPokemons[i]['species']['name']}</th>
-            </tr>
-            <tr>
-                <th>ID</th>
-                <th class=" j-flex-end">#${i}</th>
-            </tr> 
-            <tr>
-                <th>Height</th>
-                <th class="text-lowercase j-flex-end">${allPokemons[i]['height']}0 cm</th>
-            </tr> 
-            <tr>
-                <th>Weight</th>
-                <th class="text-lowercase j-flex-end">${(allPokemons[i]['weight'] / 10).toFixed(2)} kg</th>
-            </tr> 
-            <tr>
-                <th>Abilities</th>
-                <th id="abilities" class="text-end j-flex-end"></th>
-            </tr> 
-            `;
-    for (let j = 0; j < allPokemons[i]['abilities'].length; j++) {
-        const element = allPokemons[i]['abilities'][j]['ability']['name'];
-        document.getElementById('abilities').innerHTML += /*html*/ ` 
-${element}<br>
-    `;
-    }
-}
-
-
-function statsText(i) {
-    document.getElementById('statsTable').innerHTML = '';
-    for (let j = 0; j < allPokemons[i]['stats'].length; j++) {
-        const element = allPokemons[i]['stats'][j];
-        document.getElementById('statsTable').innerHTML += /*html*/ ` 
-            <tr>
-                <th>${element['stat']['name'].replace(/special-/i, "Sp. ")}</th>
-                <th>${element['base_stat']}
-                    <span><div id="data${j}" style="width: ${element['base_stat']}%;" class="background-light"></div></span>
-                </th>
-            </tr>   
-            `;
-        if (element['base_stat'] > 50) {
-            document.getElementById(`data${j}`).classList.remove('background-light');
-            document.getElementById(`data${j}`).classList.add('background-green');
-        }
-    }
-}
-
-
-function movesText(i) {
-    document.getElementById('statsTable').innerHTML = '';
-    for (let j = 0; j < allPokemons[i]['moves'].length; j++) {
-        const element = allPokemons[i]['moves'][j]['move']['name'];
-        document.getElementById('movesId').innerHTML += /*html*/ ` 
-            <span class="movesspan w-space-nowrap">${element}</span>
-            `;
-    }
-}
-
-
-function keydown(e) {
-    if (e.keyCode == 13) {
-        searchPokemon();
-    }
-}
-
-
-async function searchPokemon() {
-    let value = document.getElementById('searchContainer').value.toLowerCase();
-    let url = await `https://pokeapi.co/api/v2/pokemon/${value}`;
-    if (url) {
-        let response = await fetch(url);
-        let currentPokemon = await response.json();
-        let i = currentPokemon['id']
-        allPokemons[i] = currentPokemon;
-        showBiger(i);
-        if (i > displayPokemon) {
-            document.getElementById('leftswipe').classList.add('d-none');
-            document.getElementById('rightswipe').classList.add('d-none');
-        }
-    } else {
-        alert('no Pokemon could be found');
-    }
-
-    document.getElementById('searchContainer').value = '';
-}
-
-
-function addFavorites(i) {
-    document.getElementById('favHeartopen').classList.add('d-none');
-    document.getElementById('favHeartclose').classList.remove('d-none');
-    favoritesArray[i] = true;
-}
-
-
-function exciseFavorites(i) {
-    document.getElementById('favHeartopen').classList.remove('d-none');
-    document.getElementById('favHeartclose').classList.add('d-none');
-    favoritesArray[i] = false;
-}
-
-
-function openFavorites() {
-    document.getElementById('openFavorite').classList.add('d-none');
-    document.getElementById('closeFavorite').classList.remove('d-none');
-    document.getElementById('maincontainer').innerHTML = /*html*/ `
-    <div>hallo</div>
-    `;
-}
-
-function closeFavorites() {
-    document.getElementById('openFavorite').classList.remove('d-none');
-    document.getElementById('closeFavorite').classList.add('d-none');
-    allPokemon();
 }
