@@ -5,7 +5,7 @@ let maxPokemon = displayPokemon + 1;
 let showAbout = false;
 let showStats = false;
 let showMoves = false;
-let favoritesArray
+let favoritesArray = [];
 let showFavorits = false;
 
 
@@ -14,6 +14,7 @@ async function allPokemon() {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         allPokemons[i] = await response.json();
+        favoritesArray[i] = false;
         allPokemonContent(i);
     }
 }
@@ -90,10 +91,12 @@ function checkSecoundType(secoundType) {
 
 
 function checkFavoritesArray(i) {
-    if (favoritesArray[i] == true) {
-        addFavorites(i)
-    } else {
-        exciseFavorites(i)
+    if (favoritesArray[i]) {
+        if (favoritesArray[i] == true) {
+            addFavorites(i)
+        } else {
+            exciseFavorites(i)
+        }
     }
 }
 

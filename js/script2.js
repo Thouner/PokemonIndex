@@ -81,23 +81,59 @@ function keydown(e) {
 
 async function searchPokemon() {
     let value = document.getElementById('searchContainer').value.toLowerCase();
-    let url = await `https://pokeapi.co/api/v2/pokemon/${value}`;
-    await checkUrl(url);
+    if (value > 0 && value <= 898) {
+        searchOnlyNumber(value);
+    } else {
+        searchOnlyString(value);
+    }
     document.getElementById('searchContainer').value = '';
 }
 
 
-async function checkUrl(url) {
-    if (url) {
+async function searchOnlyNumber(value) {
+    try {
+        let url = `https://pokeapi.co/api/v2/pokemon/${value}`;
         let response = await fetch(url);
         let currentPokemon = await response.json();
         let i = currentPokemon['id']
         allPokemons[i] = currentPokemon;
         showBiger(i);
         checkInsidePokeList(i);
-    } else {
+    } catch (e) {
         alert('no Pokemon could be found');
     }
+}
+
+
+async function searchOnlyString(value) {
+    for (let l = 0; l < allPokemonNames['results'].length; l++) {
+        let pokemonName = allPokemonNames['results'][l];
+        if (checkletters(pokemonName, value)) {
+            try {
+                let url = `https://pokeapi.co/api/v2/pokemon/${pokemonName['name']}`;
+                let response = await fetch(url);
+                let currentPokemon = await response.json();
+                let i = currentPokemon['id']
+                allPokemons[i] = currentPokemon;
+                showBiger(i);
+                checkInsidePokeList(i);
+                break;
+            } catch (e) {
+                alert('no Pokemon could be found');
+            }
+        }
+    }
+}
+
+
+function checkletters(pokemonName, value) {
+    let valueLetter2 = '';
+    let pokemonLetter2 = '';
+    for (let h = 0; h < value.length; h++) {
+        valueLetter2 = valueLetter2 + value[h]
+        pokemonLetter2 = pokemonLetter2 + pokemonName['name'][h]
+    }
+    return pokemonLetter2 == valueLetter2
 }
 
 
