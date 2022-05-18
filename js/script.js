@@ -8,9 +8,9 @@ let showMoves = false;
 let favoritesArray = [];
 let showFavorits = false;
 let allPokemonNames
+let searchPokemons = [];
 
-
-
+// load all pokemon
 async function allPokemon() {
     let allPokemonNamesUrl = 'https://pokeapi.co/api/v2/pokemon?limit=898';
     let allPokemonNamesresponse = await fetch(allPokemonNamesUrl);
@@ -24,20 +24,16 @@ async function allPokemon() {
     }
 }
 
-
+// load favorites, load main color
 function allPokemonContent(i) {
     load();
     let firstType = allPokemons[i]['types'][0]['type']['name'];
-    let secoundType = '';
-    if (allPokemons[i]['types'][1]) {
-        secoundType = allPokemons[i]['types'][1]['type']['name']
-    }
-    document.getElementById('maincontainer').innerHTML += allPokemonText(i, firstType, secoundType);
+    allPokemonText(i, firstType);
 }
 
-
-function allPokemonText(i, firstType, secoundType) {
-    return /*html*/ `
+// html for loading all pokemon
+function allPokemonText(i, firstType) {
+    document.getElementById('maincontainer').innerHTML += /*html*/ `
     <div id="id${i}" onclick="showBiger(${i})" class="smallCart height350 width260 color-white letter-2 ${firstType}-bg">
         <div class="frist-smallcart-container">
             <img src="${allPokemons[i]['sprites']['other']['home']['front_default']}" alt="">
@@ -45,16 +41,26 @@ function allPokemonText(i, firstType, secoundType) {
         </div>
         <div class="secound-smallcart-container">
             <h3>${allPokemons[i]['name']}</h3>
-            <div  class="d-flex f-colum">
-            <span class="${firstType}" >${firstType}</span>
-            <span class="${secoundType}">${secoundType}</span>
+            <div id="typesContainer${i}"  class="d-flex f-colum">
+           
             </div>
         </div>
     </div>
     `;
+    lopForAllPokemonTypes(i);
 }
 
+// fill the types for all Pokemon
+function lopForAllPokemonTypes(i) {
+    for (let j = 0; j < allPokemons[i]['types'].length; j++) {
+        const element = allPokemons[i]['types'][j]['type']['name'];
+        document.getElementById(`typesContainer${i}`).innerHTML += `
+        <span class="${element}" >${element}</span>
+        `;
+    }
+}
 
+// load more pokemon
 async function morePokemon() {
     beginPokemon = displayPokemon + 1;
     displayPokemon = displayPokemon + 12;
@@ -62,23 +68,19 @@ async function morePokemon() {
     await allPokemon();
 }
 
-
+// open big cart
 function showBiger(i) {
     document.getElementById('blurContainer').classList.remove('d-none');
     let firstType = allPokemons[i]['types'][0]['type']['name'];
-    let secoundType = '';
-    if (allPokemons[i]['types'][1]) {
-        secoundType = allPokemons[i]['types'][1]['type']['name']
-    }
-    document.getElementById('bigCart').innerHTML = showBigerText(i, firstType, secoundType);
+    showBigerText(i, firstType);
     checkLeftswipe(i)
-    checkSecoundType(secoundType)
+        // checkSecoundType(secoundType)
     checkFavoritesArray(i)
     checkShowFavorits()
     setTimeout(removeBounceAnimation, 1200);
 }
 
-
+// remove left arrow when id is 1
 function checkLeftswipe(i) {
     if (i == 1) {
         document.getElementById('leftswipe').classList.add('d-none');
@@ -88,13 +90,13 @@ function checkLeftswipe(i) {
 }
 
 
-function checkSecoundType(secoundType) {
-    if (!secoundType) {
-        document.getElementById('secoundtype').classList.remove('mar-pad-wid');
-    }
-}
+// function checkSecoundType(secoundType) {
+//     if (!secoundType) {
+//         document.getElementById('secoundtype').classList.remove('mar-pad-wid');
+//     }
+// }
 
-
+// check heart is open or closed
 function checkFavoritesArray(i) {
     if (favoritesArray[i]) {
         if (favoritesArray[i] == true) {
@@ -105,7 +107,7 @@ function checkFavoritesArray(i) {
     }
 }
 
-
+// remove the arrows in the favorites container
 function checkShowFavorits() {
     if (showFavorits == true) {
         document.getElementById('leftswipe').classList.add('d-none');
@@ -113,9 +115,9 @@ function checkShowFavorits() {
     }
 }
 
-
-function showBigerText(i, firstType, secoundType) {
-    return /*html*/ `
+// html for big cart
+function showBigerText(i, firstType) {
+    document.getElementById('bigCart').innerHTML = /*html*/ `
     <div id="pokeCard" class="color-white animation-bounceInUp ${firstType}-bg">
         <img id="favHeartopen" onclick="addFavorites(${i})" class="filter-withe hearticon" src="img/open-heart.png" alt="">
         <img id="favHeartclose" onclick="exciseFavorites(${i})" class="filter-withe hearticon d-none" src="img/full-heart.png" alt="">
@@ -127,11 +129,8 @@ function showBigerText(i, firstType, secoundType) {
         <h3 id="pokeId">#${i}</h3>
         <img id="pokeImg" src="${allPokemons[i]['sprites']['other']['home']['front_default']}" alt="">
         <div id="pokeName" class="text-uppercase"><h2>${allPokemons[i]['name']}</h2>
-            <div id="type2" class="d-flex j-center ">
-            <span class="${firstType} mar-pad-wid" >${firstType}</span>
-            <span id="secoundtype" class="${secoundType} mar-pad-wid">${secoundType}</span>
-            </div>
-            </div>
+            <div id="bigerTypesContainer${i}" class="d-flex j-center "> </div>
+        </div>
         <div id="infoCard">
         <img  onclick="closeData(${i})" id="closedata" class="filter-withe closeicon d-none" src="icon/down.png" alt="">
 
@@ -153,19 +152,30 @@ function showBigerText(i, firstType, secoundType) {
         </div>
     </div>
 `;
+    lopForShowBigerTypes(i)
 }
 
+// fill the types for big cart
+function lopForShowBigerTypes(i) {
+    for (let j = 0; j < allPokemons[i]['types'].length; j++) {
+        const element = allPokemons[i]['types'][j]['type']['name'];
+        document.getElementById(`bigerTypesContainer${i}`).innerHTML += `
+        <span class="${element} mar-pad-wid" >${element}</span>
+        `;
+    }
+}
 
+// close big cart
 function closeBiger() {
     document.getElementById('blurContainer').classList.add('d-none');
 }
 
-
+// remove the animation
 function removeBounceAnimation() {
     document.getElementById('pokeCard').classList.remove('animation-bounceInUp');
 }
 
-
+// swipe left
 function swipeLeft(i) {
     i = i - 1;
     showBiger(i);
@@ -173,7 +183,7 @@ function swipeLeft(i) {
     checkOpenData(i);
 }
 
-
+// swipe right, load next pokemon
 async function swipeRight(i) {
     i = i + 1;
     if (i >= allPokemons.length) {
@@ -187,7 +197,7 @@ async function swipeRight(i) {
     checkOpenData(i);
 }
 
-
+// check whether data is open when swiping
 function checkOpenData(i) {
     if (showAbout === true) {
         openAbout(i);
@@ -201,7 +211,7 @@ function checkOpenData(i) {
     }
 }
 
-
+// change animation
 function changeAnimation() {
     document.getElementById('infoCard').classList.remove('animation-fadeup');
     document.getElementById('pokeImg').classList.remove('animation-scaledown');
@@ -210,7 +220,7 @@ function changeAnimation() {
     document.getElementById('pokeImg').style.height = '30%';
 }
 
-
+// show datas
 function showDatas(i) {
     document.getElementById('movesId').innerHTML = '';
     document.getElementById('pokeImg').classList.remove('animation-scaleup');
@@ -222,7 +232,7 @@ function showDatas(i) {
     document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['name']}</h2>`;
 }
 
-
+// open about
 function openAbout(i) {
     showAbout = true;
     showStats = false;
@@ -234,6 +244,7 @@ function openAbout(i) {
     aboutText(i);
 }
 
+// open stats
 function openStats(i) {
     showAbout = false;
     showStats = true;
@@ -245,7 +256,7 @@ function openStats(i) {
     statsText(i);
 }
 
-
+// open moves
 function openMoves(i) {
     showAbout = false;
     showStats = false;
@@ -257,7 +268,7 @@ function openMoves(i) {
     movesText(i);
 }
 
-
+// close data
 function closeData(i) {
     showAbout = false;
     showStats = false;
@@ -268,7 +279,7 @@ function closeData(i) {
     document.getElementById('pokeId').innerHTML = `<h2>${allPokemons[i]['id']}</h2>`;
 }
 
-
+// close change animation
 function closeDataChangeAnimation() {
     document.getElementById('pokeImg').classList.remove('animation-scaledown');
     document.getElementById('pokeImg').classList.add('animation-scaleup');
