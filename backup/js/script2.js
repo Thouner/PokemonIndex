@@ -1,3 +1,4 @@
+// html for about
 function aboutText(i) {
     document.getElementById('statsTable').innerHTML = '';
     document.getElementById('statsTable').innerHTML += /*html*/ ` 
@@ -25,7 +26,7 @@ function aboutText(i) {
     checkAbilitie(i);
 }
 
-
+// fill the abilities for about
 function checkAbilitie(i) {
     for (let j = 0; j < allPokemons[i]['abilities'].length; j++) {
         const element = allPokemons[i]['abilities'][j]['ability']['name'];
@@ -35,7 +36,7 @@ ${element}<br>
     }
 }
 
-
+// html for stats
 function statsText(i) {
     document.getElementById('statsTable').innerHTML = '';
     for (let j = 0; j < allPokemons[i]['stats'].length; j++) {
@@ -52,7 +53,7 @@ function statsText(i) {
     }
 }
 
-
+// fill the bar for stats
 function fillBar(element, j) {
     if (element['base_stat'] > 50) {
         document.getElementById(`data${j}`).classList.remove('background-light');
@@ -60,7 +61,7 @@ function fillBar(element, j) {
     }
 }
 
-
+// html for moves
 function movesText(i) {
     document.getElementById('statsTable').innerHTML = '';
     for (let j = 0; j < allPokemons[i]['moves'].length; j++) {
@@ -71,44 +72,98 @@ function movesText(i) {
     }
 }
 
-
+// press enter to search 
 function keydown(e) {
     if (e.keyCode == 13) {
         searchPokemon();
     }
 }
 
-
+// search number or string
 async function searchPokemon() {
+    searchPokemons = [];
     let value = document.getElementById('searchContainer').value.toLowerCase();
-    let url = await `https://pokeapi.co/api/v2/pokemon/${value}`;
-    await checkUrl(url);
+    let regex = /^[0-9]+$/;
+    if (value.match(regex)) {
+        searchOnlyNumber(value)
+    } else {
+        searchOnlyString(value);
+    }
     document.getElementById('searchContainer').value = '';
 }
 
-
-async function checkUrl(url) {
-    if (url) {
-        let response = await fetch(url);
-        let currentPokemon = await response.json();
-        let i = currentPokemon['id']
-        allPokemons[i] = currentPokemon;
-        showBiger(i);
-        checkInsidePokeList(i);
+// search number
+async function searchOnlyNumber(value) {
+    if (value > 0 && value <= 898) {
+        try {
+            let url = `https://pokeapi.co/api/v2/pokemon/${value}`;
+            let response = await fetch(url);
+            let currentPokemon = await response.json();
+            let i = currentPokemon['id']
+            allPokemons[i] = currentPokemon;
+            showBiger(i);
+            // checkInsidePokeList(i);
+        } catch (e) {
+            alert('an error has occurred');
+        }
     } else {
         alert('no Pokemon could be found');
     }
 }
 
+// search string
+async function searchOnlyString(value) {
+    document.getElementById('maincontainer').innerHTML = '';
+    for (let i = 0; i < allPokemonNames['results'].length; i++) {
+        let pokemonName = allPokemonNames['results'][i];
+        if (checkletters(pokemonName, value)) {
+            console.log(`${pokemonName['name']}`)
+            try {
+                let url = `https://pokeapi.co/api/v2/pokemon/${pokemonName['name']}`;
+                let response = await fetch(url);
+                allPokemons[i] = await response.json();
+                searchPokemons[i] = true
+            } catch (e) {
+                alert('an error has occurred');
+            }
+        }
+    }
+    loadSerachResults()
+}
 
-function checkInsidePokeList(i) {
-    if (i > displayPokemon) {
-        document.getElementById('leftswipe').classList.add('d-none');
-        document.getElementById('rightswipe').classList.add('d-none');
+// search all possible pokemon
+function loadSerachResults() {
+    document.getElementById('footerId').classList.add('d-none');
+    document.getElementById('openFavorite').classList.add('d-none');
+    document.getElementById('closeFavorite').classList.remove('d-none');
+    document.getElementById('maincontainer').innerHTML = '';
+    showFavorits = true;
+    load();
+    for (let i = 0; i < searchPokemons.length; i++) {
+        if (searchPokemons[i] == true) {
+            allPokemonContent(i)
+        }
     }
 }
 
+// comparison of search value with pokemon name
+function checkletters(pokemonName, value) {
+    let valueLetter = '';
+    let pokemonLetter = '';
+    for (let i = 0; i < value.length; i++) {
+        valueLetter = valueLetter + value[i]
+        pokemonLetter = pokemonLetter + pokemonName['name'][i]
+    }
+    return pokemonLetter == valueLetter
+}
 
+// remove arrows if not loaded
+function checkInsidePokeList(i) {
+    document.getElementById('leftswipe').classList.add('d-none');
+    document.getElementById('rightswipe').classList.add('d-none');
+}
+
+// Add to favorites
 function addFavorites(i) {
     document.getElementById('favHeartopen').classList.add('d-none');
     document.getElementById('favHeartclose').classList.remove('d-none');
@@ -116,15 +171,18 @@ function addFavorites(i) {
     save()
 }
 
-
+// remove to favorites
 function exciseFavorites(i) {
     document.getElementById('favHeartopen').classList.remove('d-none');
     document.getElementById('favHeartclose').classList.add('d-none');
     favoritesArray[i] = false;
     save()
+    if (showFavorits == true) {
+        openFavorites();
+    }
 }
 
-
+// open favorites
 function openFavorites() {
     document.getElementById('footerId').classList.add('d-none');
     document.getElementById('openFavorite').classList.add('d-none');
@@ -135,7 +193,7 @@ function openFavorites() {
     loadFavoriete();
 }
 
-
+// load favorites
 function loadFavoriete() {
     for (let i = 0; i < favoritesArray.length; i++) {
         if (favoritesArray[i] == true) {
@@ -144,24 +202,25 @@ function loadFavoriete() {
     }
 }
 
-
+// close favorites
 function closeFavorites() {
     document.getElementById('footerId').classList.remove('d-none');
     document.getElementById('openFavorite').classList.remove('d-none');
     document.getElementById('closeFavorite').classList.add('d-none');
     document.getElementById('maincontainer').innerHTML = '';
     showFavorits = false;
+    searchPokemons = [];
     beginPokemon = 1;
     allPokemon();
 }
 
-
+// save favorites
 function save() {
     let favoritsAsText = JSON.stringify(favoritesArray);
     localStorage.setItem('favoritsPokemon', favoritsAsText);
 }
 
-
+// load favorites
 function load() {
     let favoritsAsText = localStorage.getItem('favoritsPokemon');
     if (favoritsAsText) {
