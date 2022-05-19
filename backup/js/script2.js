@@ -128,10 +128,19 @@ async function searchOnlyString(value) {
             }
         }
     }
-    loadSerachResults()
+    checkResults();
 }
 
-// search all possible pokemon
+// check if a pokemon was found in the database
+function checkResults() {
+    if (!searchPokemons.includes(true)) {
+        alert('no Pokemon could be found');
+    } else {
+        loadSerachResults();
+    }
+}
+
+// loads all found pokemon
 function loadSerachResults() {
     document.getElementById('footerId').classList.add('d-none');
     document.getElementById('openFavorite').classList.add('d-none');
